@@ -1,7 +1,27 @@
 {
+  "name": "todo-app",
+  "version": "1.0.0",
+  "description": "An interactice todo web app to log, update, delete your task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PrRj06/todo-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PrRj06/todo-app/issues"
+  },
+  "homepage": "https://github.com/PrRj06/todo-app#readme",
   "dependencies": {
     "dotenv": "^17.4.1",
     "express": "^5.2.1",
-    "express-session": "^1.19.0"
-  }
+    "express-session": "^1.19.0",
+    "mongoose": "^9.4.1"
+  },
+  "type": "module"
 }
