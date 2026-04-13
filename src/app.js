@@ -5,6 +5,7 @@ import session from "express-session";
 import authRoutes from "./routes/authRoutes.js";
 import pageRoutes from "./routes/pageRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
+import taskRoutes from "./routes/taskRoutes.js";
 import connectDB from "./config/db.js";
 connectDB();
 
@@ -21,7 +22,7 @@ app.use(session({
 app.use("/",pageRoutes)             
 app.use("/api/auth",authRoutes)
 app.use("/api/user",userRoutes)
-
+app.use("/api/task", taskRoutes) 
 
 app.listen(process.env.PORT,()=>{
     console.log("Server is live");
