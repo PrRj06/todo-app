@@ -23,5 +23,5 @@ export const signup = async(req,res)=>{
         email,
         password
     });
-    res.json({msg:"Signup successfull"});
+    res.redirect('/login');
 }
