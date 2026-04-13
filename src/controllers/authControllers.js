@@ -24,4 +24,14 @@ export const signup = async(req,res)=>{
         password
     });
     res.redirect('/login');
-}
+};
+
+export const logout = async(req,res)=>{
+    req.session.destroy((err)=>{
+        if(err){
+            return res.status(500).json({msg:"Logout failed"});
+        }
+        res.clearCookie("connect.sid");
+        res.status(200).json({msg:"Logged Out"});
+    })
+};
