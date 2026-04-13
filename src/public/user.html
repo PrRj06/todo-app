@@ -458,6 +458,20 @@ function logout(){
     }
   });
 }
+// User info (replace with actual data from your backend)
+function loadUserInfo(){
+  fetch('/api/user/me',{
+    type:'GET',
+    credentials:'include'
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    console.log(data);
+    document.getElementById('user-name').textContent=data.name;
+    document.getElementById('user-email').textContent=data.email;
+  });
+}
+document.addEventListener('DOMContentLoaded',loadUserInfo);
 // THEME
 function toggleTheme(){
   const root=document.documentElement;
