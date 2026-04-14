@@ -1,6 +1,9 @@
 import dotenv from "dotenv"
 dotenv.config();
 import express from "express";
+import path from "path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 import session from "express-session";
 import authRoutes from "./routes/authRoutes.js";
 import pageRoutes from "./routes/pageRoutes.js";
@@ -9,8 +12,10 @@ import taskRoutes from "./routes/taskRoutes.js";
 import connectDB from "./config/db.js";
 connectDB();
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 const app = express();
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 app.use(session({
