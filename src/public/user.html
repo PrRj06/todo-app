@@ -856,7 +856,7 @@ function renderTasks(list){
   }
   el.innerHTML=list.map((t,i)=>`
     <div class="task-item${t.done?' done':''}" id="ti${t.id}" style="animation-delay:${i*0.04}s">
-      <div class="task-cb" onclick="toggleTask(${t.id})"></div>
+      <div class="task-cb" onclick="updateTask('${t.id}')"></div>
       <div class="task-body">
         <div class="task-name">${escHtml(t.name)}</div>
         <div class="task-meta">
@@ -896,14 +896,33 @@ function updateStats(){
   document.getElementById('overdueBar').style.setProperty('--w',total?Math.round(overdue/total*100)+'%':'0%');
 }
 
-function toggleTask(id){
-  const t=tasks.find(x=>x.id===id);
-  if(!t) return;
-  t.done=!t.done;
-  const el=document.getElementById('ti'+id);
-  if(el){el.style.transform='scale(1.02)';setTimeout(()=>{el.style.transform=''},180)}
-  updateStats();
-  setTimeout(()=>{renderTasks(getFiltered());updateStats()},300);
+async function updateTask(id){
+  try{
+      const task = tasks.find(t => t.id === id);
+      const res = await fetch(`/api/task/${id}`, {
+        method:'PUT',
+        credentials:'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title: task.name,
+          completed: !task.done,
+          deadline: task.deadline || null,
+          tag: task.tag
+        })
+      });
+      const t=tasks.find(x=>x.id===id);
+      if(t){
+        t.done=!t.done;
+        const el=document.getElementById('ti'+id);
+        if(el){el.style.transform='scale(1.02)';setTimeout(()=>{el.style.transform=''},180)}
+        updateStats();
+        setTimeout(()=>{renderTasks(getFiltered());updateStats()},300);
+      }
+  }catch(err){
+    alert(err.message || 'Failed to update task.');
+  }
 }
 
 async function deleteTask(id){

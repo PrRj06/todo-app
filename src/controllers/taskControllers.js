@@ -32,6 +32,9 @@ export const addTask = async(req,res)=>{
 
 export const deleteTask = async(req,res)=>{
     try{
+        if(!req.session.userId){
+            return res.status(401).json({msg:"Unauthorised"})
+        }
         const {id} = req.params;
         const task = await Task.findOneAndDelete({
             _id: id,
@@ -43,5 +46,29 @@ export const deleteTask = async(req,res)=>{
         res.status(200).json({msg:"Task deleted"});
     }catch(err){
         res.status(500).json({msg:"Server error"});
+    }
+};
+
+export const updateTask = async(req,res)=>{
+    try{
+        if(!req.session.userId){
+            return res.status(401).json({msg:"Unauthorised"})
+        }
+        const {id} = req.params;
+        const {title,completed,deadline,tag} = req.body;
+        const task = await Task.findByIdAndUpdate(
+            {_id: id, user:req.session.userId},
+            {
+                $set: { title, completed, deadline, tag }
+            },
+            { returnDocument:after } 
+        );
+        if(!task){
+            return res.status(404).json({msg:"Task not found"});
+        }
+        return res.status(200).json({msg: "Task updated successfully"});
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({msg:"Server error"});
     }
 };
