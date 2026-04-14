@@ -61,7 +61,7 @@ export const updateTask = async(req,res)=>{
             {
                 $set: { title, completed, deadline, tag }
             },
-            { returnDocument:after } 
+            { returnDocument:"after" } 
         );
         if(!task){
             return res.status(404).json({msg:"Task not found"});
