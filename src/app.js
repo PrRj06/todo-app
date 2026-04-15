@@ -1,5 +1,4 @@
-import dotenv from "dotenv"
-dotenv.config();
+import dotenv from "dotenv";
 import express from "express";
 import path from "path";
 import { dirname } from "path";
@@ -9,8 +8,8 @@ import authRoutes from "./routes/authRoutes.js";
 import pageRoutes from "./routes/pageRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import taskRoutes from "./routes/taskRoutes.js";
-import connectDB from "./config/db.js";
-connectDB();
+
+dotenv.config();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -29,6 +28,4 @@ app.use("/api/auth",authRoutes)
 app.use("/api/user",userRoutes)
 app.use("/api/task", taskRoutes) 
 
-app.listen(process.env.PORT,()=>{
-    console.log("Server is live");
-})
+export default app;
