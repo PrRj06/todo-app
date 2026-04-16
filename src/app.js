@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 import express from "express";
+import cookieParser from "cookie-parser";
 import path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
-import session from "express-session";
 import authRoutes from "./routes/authRoutes.js";
 import pageRoutes from "./routes/pageRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
@@ -17,11 +17,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
-app.use(session({
-    secret:process.env.SECRET_KEY,
-    resave:false,
-    saveUninitialized:false
-}));
+app.use(cookieParser());
 
 app.use("/",pageRoutes)             
 app.use("/api/auth",authRoutes)

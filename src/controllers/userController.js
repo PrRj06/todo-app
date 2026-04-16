@@ -1,6 +1,6 @@
 import User from "../models/user.js";
 export const getLoggedUser = async(req,res)=>{
-    const user = await User.findById(req.session.userId);
+    const user = await User.findById(req.user.id);
     if(!user){
         return res.status(404).json({msg:"User not found"});
     }

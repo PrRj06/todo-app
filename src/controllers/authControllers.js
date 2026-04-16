@@ -1,4 +1,18 @@
+import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+
+const createAuthToken = (userId) => {
+    return jwt.sign({ userId }, process.env.SECRET_KEY, { expiresIn: "7d" });
+};
+
+const cookieOptions = {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: 7 * 24 * 60 * 60 * 1000
+};
+
 export const login = async(req,res)=>{
     const {email,password} = req.body;
     const user = await User.findOne({email});
@@ -8,7 +22,8 @@ export const login = async(req,res)=>{
     if(user.password !== password){
         return res.status(404).json({msg:"Invalid password"});
     }
-    req.session.userId = user._id;
+    const token = createAuthToken(user._id);
+    res.cookie("auth_token", token, cookieOptions);
     res.redirect(`/user`);
 };
 
@@ -27,11 +42,11 @@ export const signup = async(req,res)=>{
 };
 
 export const logout = async(req,res)=>{
-    req.session.destroy((err)=>{
-        if(err){
-            return res.status(500).json({msg:"Logout failed"});
-        }
-        res.clearCookie("connect.sid");
-        res.status(200).json({msg:"Logged Out"});
-    })
+    res.clearCookie("auth_token", {
+        httpOnly: true,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
+        path: "/"
+    });
+    res.status(200).json({msg:"Logged Out"});
 };

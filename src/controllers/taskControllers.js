@@ -1,10 +1,10 @@
 import Task from "../models/task.js";
 export const userTasks = async(req,res)=>{
     try{
-        if(!req.session.userId){
+        if(!req.user?.id){
             return res.status(401).json({msg:"Unauthorise"});
         }
-        const tasks = await Task.find({user: req.session.userId}).sort({createdAt: -1});
+        const tasks = await Task.find({user: req.user.id}).sort({createdAt: -1});
         res.json(tasks);
     }catch(err){
         return res.status(500).json({msg: 'Servre error'});
@@ -13,7 +13,7 @@ export const userTasks = async(req,res)=>{
 
 export const addTask = async(req,res)=>{
     try{
-        if(!req.session.userId){
+        if(!req.user?.id){
             return res.status(401).json({msg: "Unauthorised"});
         }
         const {title,completed,deadline,tag} = req.body;
@@ -22,7 +22,7 @@ export const addTask = async(req,res)=>{
             completed,
             deadline,
             tag,
-            user: req.session.userId
+            user: req.user.id
         });
         return res.status(200).json(task);
     }catch(err){
@@ -32,13 +32,13 @@ export const addTask = async(req,res)=>{
 
 export const deleteTask = async(req,res)=>{
     try{
-        if(!req.session.userId){
+        if(!req.user?.id){
             return res.status(401).json({msg:"Unauthorised"})
         }
         const {id} = req.params;
         const task = await Task.findOneAndDelete({
             _id: id,
-            user: req.session.userId
+            user: req.user.id
         });
         if(!task){
             return res.status(404).json({msg:"Task not found"});
@@ -51,13 +51,13 @@ export const deleteTask = async(req,res)=>{
 
 export const updateTask = async(req,res)=>{
     try{
-        if(!req.session.userId){
+        if(!req.user?.id){
             return res.status(401).json({msg:"Unauthorised"})
         }
         const {id} = req.params;
         const {title,completed,deadline,tag} = req.body;
         const task = await Task.findByIdAndUpdate(
-            {_id: id, user:req.session.userId},
+            {_id: id, user:req.user.id},
             {
                 $set: { title, completed, deadline, tag }
             },
