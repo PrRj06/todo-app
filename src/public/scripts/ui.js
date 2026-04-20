@@ -8,21 +8,6 @@ export function applySavedTheme() {
   }
 }
 
-export function setSidebarOpen(isOpen) {
-  const sb = document.getElementById("sidebar");
-  const main = document.querySelector(".main");
-  const btn = document.getElementById("sideToggleBtn");
-
-  sb.style.transform = isOpen ? "" : "translateX(-100%)";
-  main.style.marginLeft = isOpen ? "var(--sidebar-w)" : "0";
-  btn.textContent = isOpen ? "◀" : "▶";
-}
-
-export function setActiveNav(el) {
-  document.querySelectorAll(".nav-item").forEach((n) => n.classList.remove("active"));
-  el.classList.add("active");
-}
-
 export function openModalUI() {
   document.getElementById("taskModalBackdrop").classList.add("open");
   document.body.style.overflow = "hidden";
@@ -99,7 +84,10 @@ export function updateStats() {
   document.getElementById("doneCount").textContent = done;
   document.getElementById("overdueCount").textContent = overdue;
   document.getElementById("taskCount").textContent = `(${getFilteredTasks().length})`;
-  document.getElementById("todayBadge").textContent = total;
+  const todayBadge = document.getElementById("todayBadge");
+  if (todayBadge) {
+    todayBadge.textContent = total;
+  }
   document.getElementById("ringPct").textContent = pct + "%";
   document.getElementById("progressVal").textContent = `${done} of ${total}`;
   document.getElementById("progressSub").textContent =

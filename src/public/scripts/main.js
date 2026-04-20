@@ -8,8 +8,6 @@ import {
   openModalUI,
   renderTasks,
   resetModalUI,
-  setActiveNav,
-  setSidebarOpen,
   showTagSelection,
   showUserInfo,
   updateStats
@@ -21,15 +19,6 @@ function toggleTheme() {
   const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
   root.setAttribute("data-theme", next);
   localStorage.setItem("theme", next);
-}
-
-function toggleSidebar() {
-  appState.sidebarOpen = !appState.sidebarOpen;
-  setSidebarOpen(appState.sidebarOpen);
-}
-
-function setActive(el) {
-  setActiveNav(el);
 }
 
 async function logout() {
@@ -213,6 +202,45 @@ function searchTasks(q) {
   renderTasks(query ? appState.tasks.filter((t) => t.name.toLowerCase().includes(query)) : getFilteredTasks());
 }
 
+function closeUserMenu() {
+  const menu = document.getElementById("userMenu");
+  const trigger = document.getElementById("profileTrigger");
+  if (!menu || !trigger) return;
+
+  menu.classList.remove("open");
+  trigger.setAttribute("aria-expanded", "false");
+}
+
+function toggleUserMenu(event) {
+  if (event) {
+    event.stopPropagation();
+  }
+
+  const menu = document.getElementById("userMenu");
+  const trigger = document.getElementById("profileTrigger");
+  if (!menu || !trigger) return;
+
+  const nextOpen = !menu.classList.contains("open");
+  menu.classList.toggle("open", nextOpen);
+  trigger.setAttribute("aria-expanded", String(nextOpen));
+}
+
+function handleThemeToggle() {
+  toggleTheme();
+  closeUserMenu();
+}
+
+function wireUserMenu() {
+  document.addEventListener("click", (e) => {
+    const wrap = document.querySelector(".profile-menu-wrap");
+    if (!wrap) return;
+
+    if (!wrap.contains(e.target)) {
+      closeUserMenu();
+    }
+  });
+}
+
 function wireKeyboardShortcuts() {
   document.addEventListener("keydown", (e) => {
     if ((e.key === "n" || e.key === "N") && !["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) {
@@ -220,6 +248,7 @@ function wireKeyboardShortcuts() {
     }
 
     if (e.key === "Escape") {
+      closeUserMenu();
       closeModal();
     }
   });
@@ -227,8 +256,9 @@ function wireKeyboardShortcuts() {
 
 function exposeGlobals() {
   window.toggleTheme = toggleTheme;
-  window.toggleSidebar = toggleSidebar;
-  window.setActive = setActive;
+  window.closeUserMenu = closeUserMenu;
+  window.toggleUserMenu = toggleUserMenu;
+  window.handleThemeToggle = handleThemeToggle;
   window.logout = logout;
   window.openModal = openModal;
   window.closeModal = closeModal;
@@ -245,6 +275,7 @@ function exposeGlobals() {
 function init() {
   applySavedTheme();
   exposeGlobals();
+  wireUserMenu();
   wireKeyboardShortcuts();
   renderTasks(getFilteredTasks());
   updateStats();

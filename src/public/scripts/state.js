@@ -1,5 +1,4 @@
 export const appState = {
-  sidebarOpen: true,
   selectedTag: "work",
   completedVal: false,
   tasks: [],

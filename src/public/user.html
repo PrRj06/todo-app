@@ -5,47 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Dashboard — Taska</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/styles/user.css">
+<link rel="stylesheet" href="./styles/user.css">
 </head>
 <body>
-
-<!-- SIDEBAR -->
-<aside class="sidebar" id="sidebar">
-
-  <!-- FIX 1: logo (inline width) + toggle button, space-between -->
-  <div class="side-topbar">
-    <a href="/" class="side-logo">Task<span>a</span></a>
-    <button class="sidebar-toggle" id="sideToggleBtn" onclick="toggleSidebar()" title="Collapse sidebar" aria-label="Toggle sidebar">◀</button>
-  </div>
-
-  <div class="user-card">
-    <div class="avatar">
-      <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt="User"/>
-    </div>
-    <div class="user-info">
-      <div class="user-name" id="user-name">Loading…</div>
-      <div class="user-email" id="user-email"></div>
-    </div>
-  </div>
-
-  <nav class="side-nav">
-    <div class="nav-section">Workspace</div>
-    <div class="nav-item active" onclick="setActive(this)"><span class="ni-icon">☀️</span>Today<span class="nav-badge" id="todayBadge">6</span></div>
-    <div class="nav-item" onclick="setActive(this)"><span class="ni-icon">📅</span>Upcoming</div>
-    <div class="nav-item" onclick="setActive(this)"><span class="ni-icon">⭐</span>Starred<span class="nav-badge">2</span></div>
-    <div class="nav-item" onclick="setActive(this)"><span class="ni-icon">✅</span>Completed</div>
-    <div class="nav-section" style="margin-top:.8rem">Projects</div>
-    <div class="nav-item" onclick="setActive(this)"><span class="ni-icon" style="color:#3498db">◉</span>Work</div>
-    <div class="nav-item" onclick="setActive(this)"><span class="ni-icon" style="color:#4caf7a">◉</span>Health</div>
-    <div class="nav-item" onclick="setActive(this)"><span class="ni-icon" style="color:#f0a500">◉</span>Personal</div>
-    <div class="nav-item" onclick="setActive(this)" style="color:var(--accent)"><span class="ni-icon">＋</span>New project</div>
-  </nav>
-
-  <div class="side-footer">
-    <button class="logout-btn" onclick="logout()">⤷ Sign out</button>
-    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme"></button>
-  </div>
-</aside>
 
 <div class="modal-backdrop" id="taskModalBackdrop" onclick="handleBackdropClick(event)">
   <div class="task-modal" id="taskModal">
@@ -111,15 +73,31 @@
 <!-- MAIN -->
 <div class="main">
   <div class="topbar">
-    <h1 class="topbar-title">Today's Focus ✦</h1>
-    <div class="search-wrap">
-      <span class="search-ico">🔍</span>
-      <input type="text" placeholder="Search tasks…" oninput="searchTasks(this.value)"/>
+    <a href="/" class="top-logo">Task<span>a</span></a>
+    <div class="topbar-actions">
+      <div class="search-wrap">
+        <span class="search-ico">🔍</span>
+        <input type="text" placeholder="Search tasks…" oninput="searchTasks(this.value)"/>
+      </div>
+      <div class="profile-menu-wrap">
+        <button class="profile-trigger" id="profileTrigger" onclick="toggleUserMenu(event)" title="User menu" aria-label="Open user menu" aria-haspopup="menu" aria-expanded="false">
+          <img id="profileAvatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80" alt="User profile"/>
+        </button>
+        <div class="profile-menu" id="userMenu" role="menu" aria-label="User menu">
+          <div class="profile-menu-head">
+            <div class="profile-menu-name" id="user-name">Loading...</div>
+            <div class="profile-menu-email" id="user-email"></div>
+          </div>
+          <button class="profile-menu-item" onclick="handleThemeToggle()" role="menuitem">◐ Switch theme</button>
+          <button class="profile-menu-item" onclick="closeUserMenu();logout()" role="menuitem">⤷ Sign out</button>
+        </div>
+      </div>
     </div>
-    <button class="notif-btn" title="Notifications">🔔<span class="notif-dot"></span></button>
   </div>
 
   <div class="content">
+    <h1 class="content-title">Today's Focus ✦</h1>
+
     <div class="stats-row">
       <div class="stat-card">
         <div class="sc-label">Today's tasks</div>
@@ -231,8 +209,6 @@
   </div>
 </div>
 
-<button class="mob-toggle" id="mobToggle" onclick="toggleSidebar()">☰</button>
-
-<script type="module" src="/scripts/main.js"></script>
+<script type="module" src="./scripts/main.js"></script>
 </body>
 </html>
