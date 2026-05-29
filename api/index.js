@@ -1,5 +1,5 @@
-import app from "../src/app.js";
-import connectDB from "../src/config/db.js";
+import app from "../backend/app.js";
+import connectDB from "../backend/config/db.js";
 
 await connectDB();
 
