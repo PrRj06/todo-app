@@ -1,6 +1,8 @@
+import HeroNav from "./components/HeroNav";
 function App(){
   return (
     <>
+    <HeroNav/>
     </>
   )
 }
