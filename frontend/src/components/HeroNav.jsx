@@ -3,7 +3,7 @@ import ThemeToggle from "./ui/ThemeToggle";
 function HeroNav(){
     return(
         <>
-        <div className="w-screen flex justify-between items-center dark:text-white px-6 py-2">
+        <div className="fixed top-0 z-50 w-full flex justify-between items-center border-b border-(--border) bg-[linear-gradient(180deg,var(--bg-soft),var(--bg))] px-6 py-2 text-(--text)">
             <div>TASKA</div>
             <div className="flex items-center gap-6">
                 <div><a href="/#features">FEATURES</a></div>
