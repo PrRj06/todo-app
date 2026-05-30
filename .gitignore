@@ -140,3 +140,6 @@ vite.config.ts.timestamp-*
 
 node_modules/
 .env
+
+# Local frontend style experiments
+/frontend/src/index.css
