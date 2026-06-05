@@ -20,7 +20,7 @@ const steps = [
 function HowItWork(){
     return(
         <>
-            <section id="hiw" className="w-full min-h-screen px-10 flex flex-col justify-center">
+            <section id="hiw" className="w-full min-h-screen px-10 flex flex-col justify-center pb-5">
                 <div className="w-full max-w-5xl m-auto">
                     <div className="my-20">
                         <span className="text-(--bg-glow) font-bold text-sm">GET STARTED</span>
