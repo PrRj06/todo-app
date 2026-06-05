@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import GlowButton from "./ui/GlowButton";
 import ThemeToggle from "./ui/ThemeToggle";
 function HeroNav(){
@@ -8,8 +9,8 @@ function HeroNav(){
             <div className="flex items-center gap-6">
                 <div><a href="/#features">FEATURES</a></div>
                 <div><a href="/#hiw">HOW IT WORKS</a></div>
-                <div><a href="/#signin">SIGN IN</a></div>
-                <GlowButton text="GET STARTED FREE"/>
+                <div><Link to="/signin">SIGN IN</Link></div>
+                <GlowButton text="GET STARTED FREE" to="/signup"/>
             </div>
             <ThemeToggle/>
         </div>
