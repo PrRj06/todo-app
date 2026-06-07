@@ -12,6 +12,7 @@
 	--bg-soft: #e2e8f0;
 	--bg-glow: rgba(127, 30, 212, 0.952);
 	--surface: #cbd5e1;
+	--smooth-surface: rgba(203, 213, 225, 0.72);
 	--surface-strong: #94a3b8;
 	--text: #0f172a;
 	--text-muted: #2d3138;
@@ -28,6 +29,7 @@ html.dark {
 	--bg-soft: #111827;
 	--bg-glow: rgba(127, 30, 212, 0.952);
 	--surface: #1f293796;
+	--smooth-surface: rgba(31, 41, 55, 0.72);
 	--surface-strong: #334155;
 	--text: #f8fafc;
 	--text-muted: #cacccfea;
@@ -50,4 +52,14 @@ body {
 		radial-gradient(circle at top,rgba(56, 189, 248, 0.12),transparent 35%),
 		linear-gradient(180deg,var(--bg-soft),var(--bg));
 	color: var(--text);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-text-fill-color: var(--text);
+	caret-color: var(--text);
+	box-shadow: 0 0 0 1000px var(--smooth-surface) inset;
+	transition: background-color 9999s ease-in-out 0s;
 }

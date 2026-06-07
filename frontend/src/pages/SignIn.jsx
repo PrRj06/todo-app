@@ -1,7 +1,13 @@
+import SignInForm from "../components/SignInForm"
+import SignInLeft from "../components/SignInLeft"
 export default function SignIn(){
     return(
         <>
-            <h1>Sig In</h1>
+            <div className="w-full flex ">
+                {/* left-image section */}
+                <SignInLeft/>
+                <SignInForm/>
+            </div>
         </>
     )
 };
