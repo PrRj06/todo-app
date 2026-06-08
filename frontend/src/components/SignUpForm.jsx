@@ -25,7 +25,7 @@ function SignUpForm(){
                             <label className="text-sm text-(--text-muted) font-bold"  htmlFor="">NAME</label>
                             <div className="flex items-center rounded-md border-[0.5px] border-white/20 px-2 py-2 bg-(--smooth-surface) text-sm gap-3">
                                 <User className="text-(--text-muted) size-4"/>
-                                <input className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" type="email" placeholder="Your full name"/>
+                                <input className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" type="text" placeholder="Your full name"/>
                             </div>
                         </div>
 
