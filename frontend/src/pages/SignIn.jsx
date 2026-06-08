@@ -3,7 +3,8 @@ import SignInLeft from "../components/SignInLeft"
 export default function SignIn(){
     return(
         <>
-            <div className="w-full flex ">
+            <div className="relative w-full flex ">
+                
                 {/* left-image section */}
                 <SignInLeft/>
                 <SignInForm/>

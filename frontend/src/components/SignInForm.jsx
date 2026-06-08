@@ -2,11 +2,15 @@ import { Mail } from "lucide-react";
 import { KeyRound } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import ThemeToggle from "./ui/ThemeToggle";
 function SignInForm(){
     const [showPassword, setShowPassword] = useState(false);
     return(
         <>
-            <div className="w-full min-h-screen flex flex-col justify-center items-center">
+            <div className="relative w-full min-h-screen flex flex-col justify-center items-center">
+                <div className="absolute z-100 top-6 right-6">
+                    <ThemeToggle/>
+                </div>
                 <div className="min-w-100">
                     <span className="text-(--bg-glow) font-bold text-sm">WELCOME BACK</span>
                     <div className="max-w-3xl text-balance text-3xl font-bold leading-[1.05] tracking-normal text-(--text) sm:text-5xl">
