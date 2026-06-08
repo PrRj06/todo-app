@@ -1,6 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
-
 *,
 *::before,
 *::after {
@@ -11,6 +11,7 @@
 	--bg: #f8fafc;
 	--bg-soft: #e2e8f0;
 	--bg-glow: rgba(127, 30, 212, 0.952);
+	--font-display: 'Playfair Display', serif;
 	--surface: #cbd5e1;
 	--smooth-surface: rgba(203, 213, 225, 0.72);
 	--surface-strong: #94a3b8;

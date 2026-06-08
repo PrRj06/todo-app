@@ -7,7 +7,7 @@ function HiwFooter(){
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_60%,rgba(149,117,205,.18)_0%,transparent_65%)]"></div>
 
             <div className="relative z-10 mx-auto flex min-h-96 w-full max-w-5xl flex-col items-center justify-center px-6 py-16 text-center">
-                <h1 className="w-full max-w-4xl text-balance text-4xl font-bold leading-[1.05] tracking-normal text-(--text) sm:text-6xl">
+                <h1 className="w-full max-w-4xl text-balance text-4xl font-bold font-(family-name:--font-display) leading-[1.05] tracking-normal text-(--text) sm:text-6xl">
                     Ready to get<br/>
                     <em className="text-(--bg-glow)">things done?</em>
                 </h1>

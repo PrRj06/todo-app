@@ -8,10 +8,10 @@ function SignUpRight(){
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_60%,rgba(149,117,205,.18)_0%,transparent_65%)]"></div>
 
                 <div className="relative z-10 flex min-h-screen w-full flex-col justify-center px-10 py-6 gap-3">
-                     <div className="max-w-3xl text-balance text-3xl font-bold leading-[1.05] tracking-normal text-(--text) sm:text-5xl">
+                     <div className="max-w-3xl text-balance text-3xl font-semibold font-(family-name:--font-display) leading-[1.05] tracking-normal text-(--text) sm:text-5xl">
                         <p className="my-1.5">
                             Your most <br />
-                             <span className="text-(--bg-glow)">productive </span><br />
+                             <em className="text-(--bg-glow)">productive </em><br />
                             self starts here
                         </p>
                     </div>

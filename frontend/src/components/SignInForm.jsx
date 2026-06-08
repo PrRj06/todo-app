@@ -13,9 +13,9 @@ function SignInForm(){
                 </div>
                 <div className="min-w-100">
                     <span className="text-(--bg-glow) font-bold text-sm">WELCOME BACK</span>
-                    <div className="max-w-3xl text-balance text-3xl font-bold leading-[1.05] tracking-normal text-(--text) sm:text-5xl">
+                    <div className="max-w-3xl text-balance text-3xl font-bold font-(family-name:--font-display) leading-[1.05] tracking-normal text-(--text) sm:text-5xl">
                         <p className="my-1.5">
-                            Sign <span className="text-(--bg-glow)">in</span><br />
+                            Sign <em className="text-(--bg-glow)">in</em><br />
                             to Taska
                         </p>
                     </div>

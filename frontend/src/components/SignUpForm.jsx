@@ -14,14 +14,14 @@ function SignUpForm(){
                 </div>
                 <div className="min-w-100">
                     <span className="text-(--bg-glow) font-bold text-sm">JOIN TASKA</span>
-                    <div className="max-w-3xl text-balance text-3xl font-bold leading-[1.05] tracking-normal text-(--text) sm:text-5xl">
+                    <div className="max-w-3xl text-balance text-3xl font-bold font-(family-name:--font-display) leading-[1.05] tracking-normal text-(--text) sm:text-5xl">
                         <p className="my-1.5">
                             Create your <br />
-                             <span className="text-(--bg-glow)">free </span>
+                             <em className="text-(--bg-glow)">free </em>
                             account
                         </p>
                     </div>
-                    <p className="text-sm text-(--text-muted)">Already have one? <Link to="/signin" className="text-(--bg-glow)">Sign in →</Link></p>
+                    <p className="text-sm text-(--text-muted) my-3">Already have one? <Link to="/signin" className="text-(--bg-glow)">Sign in →</Link></p>
 
                     <form className="my-5" action="">
                         {/* name input field */}

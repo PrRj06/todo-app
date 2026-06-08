@@ -9,7 +9,7 @@ function ThemeToggle(){
     return(
         <>
             <div className="w-fit flex items-center dark:text-yellow-300 text-gray-500">
-                <button onClick={toggleTheme}>
+                <button onClick={toggleTheme} className="cursor-pointer">
                     {theme ===  "light" ? <Moon/> : <Sun/>}
                 </button>
             </div>

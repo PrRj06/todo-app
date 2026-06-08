@@ -10,7 +10,7 @@ function Hero(){
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_60%,rgba(149,117,205,.18)_0%,transparent_65%)]"></div>
 
                 <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center px-6 pt-20 text-center">
-                    <h1 className="w-full max-w-6xl text-balance text-5xl font-bold leading-[1.05] tracking-normal text-(--text) sm:text-7xl lg:text-8xl">
+                    <h1 className="w-full max-w-6xl text-balance text-5xl font-bold font-(family-name:--font-display) leading-[1.05] tracking-normal text-(--text) sm:text-7xl lg:text-8xl">
                         Organize your<br/>
                         <em className="text-(--bg-glow)">life's work</em><br/>
                         beautifully
