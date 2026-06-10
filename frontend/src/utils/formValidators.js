@@ -18,6 +18,16 @@ export const validatePassword = (password) => {
     return error;
 };
 
+export const validateLoginPassword = (password) => {
+    let error = "";
+
+    if (!password.trim()) {
+        error = "Password cannot be empty.";
+    }
+
+    return error;
+};
+
 export const validateEmail = (email) => {
     let error = "";
 

@@ -3,8 +3,42 @@ import { KeyRound } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ThemeToggle from "./ui/ThemeToggle";
+import { validateLoginPassword, validateEmail } from "../utils/formValidators";
+const INITIAL_FORM_STATE = {
+    email: "",
+    password: "",
+};
+
 function SignInForm(){
     const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+    const [errorData, setErrorData] = useState(INITIAL_FORM_STATE);
+
+    const handleChange = (e)=>{
+        const {name, value} = e.target;
+        setFormData(prev => ({...prev, [name] : value}));
+        setErrorData(prev => ({...prev, [name]: ""}))
+    }
+
+    const validateForm = (e)=>{
+        e.preventDefault();
+        const errors = {
+            email: validateEmail(formData.email),
+            password: validateLoginPassword(formData.password)
+        };
+        setErrorData(errors);
+
+        let containsError = Object.values(errors).some(
+            error => error !== ""
+        );
+
+        if(!containsError){
+            alert("Login Successful");
+            setFormData(INITIAL_FORM_STATE);
+            setErrorData(INITIAL_FORM_STATE);
+        }
+    }
+
     return(
         <>
             <div className="relative w-full min-h-screen flex flex-col justify-center items-center">
@@ -21,25 +55,53 @@ function SignInForm(){
                     </div>
                     <p className="text-sm text-(--text-muted)">No account? <Link to="/signup" className="text-(--bg-glow)">Create one free →</Link></p>
 
-                    <form className="my-5" action="">
+                    <form className="my-5" onSubmit={validateForm}>
                         {/* email input field */}
                         <div className="flex flex-col my-4">
-                            <label className="text-sm text-(--text-muted) font-bold"  htmlFor="">EMAIL ADDRESS</label>
-                            <div className="flex items-center rounded-md border-[0.5px] border-white/20 px-2 py-2 bg-(--smooth-surface) text-sm gap-3">
+                            <label className="text-sm text-(--text-muted) font-bold"  htmlFor="email">EMAIL ADDRESS</label>
+                            <div className={`flex items-center rounded-md border-[0.5px] ${errorData.email ? "border-red-500" : "border-white/20"} px-2 py-2 bg-(--smooth-surface) text-sm gap-3`}>
+                            {/* <div className="flex items-center rounded-md border-[0.5px] border-white/20 px-2 py-2 bg-(--smooth-surface) text-sm gap-3"> */}
                                 <Mail className="text-(--text-muted) size-4"/>
-                                <input className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" type="email" placeholder="you@example.com"/>
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email" 
+                                    placeholder="you@example.com"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" 
+                                />
                             </div>
+                            {
+                                errorData.email && (
+                                    <p className="text-red-500 text-sm my-1 mx-1">{errorData.email}</p>
+                                )
+                            }
                         </div>
 
                         {/* password input field */}
                         <div className="relative flex flex-col my-4 text-(--text-muted) text-sm ">
-                            <label className="font-bold"  htmlFor="">PASSWORD</label>
-                            <div className="flex items-center rounded-md border-[0.5px] border-white/20 px-2 py-2 bg-(--smooth-surface) text-sm gap-3">
+                            <label className="font-bold"  htmlFor="password">PASSWORD</label>
+                            <div className={`flex items-center rounded-md border-[0.5px] ${errorData.password ? "border-red-500" : "border-white/20"} px-2 py-2 bg-(--smooth-surface) text-sm gap-3`}>
+                            {/* <div className="flex items-center rounded-md border-[0.5px] border-white/20 px-2 py-2 bg-(--smooth-surface) text-sm gap-3"> */}
                                 <KeyRound className="text-(--text-muted) size-4"/>
-                                <input className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" type={showPassword ? "text" : "password"} placeholder="your password"/>
+                                <input 
+                                    id="password"
+                                    name="password"
+                                    type={showPassword ? "text" : "password"} 
+                                    placeholder="your password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" 
+                                />
                                 {/* password hide and show feature */}
                                 <button type="button" onClick={() => setShowPassword((current) => !current)} className="absolute right-3 cursor-pointer text-(--bg-glow) font-bold">{showPassword ? "Hide" : "Show"}</button>
                             </div>
+                            {
+                                errorData.password && (
+                                    <p className="text-red-500 text-sm my-1 mx-1">{errorData.password}</p>
+                                )
+                            }
                         </div>
 
                         <div className="flex justify-between items-center text-sm my-4">
