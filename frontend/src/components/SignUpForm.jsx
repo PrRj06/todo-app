@@ -3,16 +3,56 @@ import { Mail } from "lucide-react";
 import { KeyRound } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { validateName, validateEmail, validatePassword } from "../utils/formValidators";
 import ThemeToggle from "./ui/ThemeToggle";
+
+const INITIAL_FORM_STATE = {
+    name: "",
+    email: "",
+    password: "",
+};
+
 function SignUpForm(){
     const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState(INITIAL_FORM_STATE);
+    const [errorData, setErrorData] = useState(INITIAL_FORM_STATE);
+
+    const handleChange = (e)=>{
+        const {name, value} = e.target;
+        setFormData(prev => ({...prev, [name] : value}));
+        setErrorData(prev => ({...prev, [name]: ""}))
+    }
+
+    const validateForm = (e)=>{
+        e.preventDefault();
+        const errors = {
+            name: validateName(formData.name),
+            email: validateEmail(formData.email),
+            password: validatePassword(formData.password)
+        };
+        setErrorData(errors);
+
+        let containsError = Object.values(errors).some(
+            error => error !== ""
+        );
+
+        if(!containsError){
+            alert("Form submitted");
+            setFormData(INITIAL_FORM_STATE);
+            setErrorData(INITIAL_FORM_STATE);
+        }
+    }
+
     return(
         <>
             <div className="relative w-full min-h-screen flex flex-col justify-center items-center">
+
                 <div className="absolute z-100 top-6 left-6">
                     <ThemeToggle/>
                 </div>
+
                 <div className="min-w-100">
+
                     <span className="text-(--bg-glow) font-bold text-sm">JOIN TASKA</span>
                     <div className="max-w-3xl text-balance text-3xl font-bold font-(family-name:--font-display) leading-[1.05] tracking-normal text-(--text) sm:text-5xl">
                         <p className="my-1.5">
@@ -23,34 +63,73 @@ function SignUpForm(){
                     </div>
                     <p className="text-sm text-(--text-muted) my-3">Already have one? <Link to="/signin" className="text-(--bg-glow)">Sign in →</Link></p>
 
-                    <form className="my-5" action="">
+                    <form className="my-5" onSubmit={validateForm}>
                         {/* name input field */}
                         <div className="flex flex-col my-4">
-                            <label className="text-sm text-(--text-muted) font-bold"  htmlFor="">NAME</label>
-                            <div className="flex items-center rounded-md border-[0.5px] border-white/20 px-2 py-2 bg-(--smooth-surface) text-sm gap-3">
+                            <label htmlFor="name" className="text-sm text-(--text-muted) font-bold">NAME</label>
+                            <div className={`flex items-center rounded-md border-[0.5px] ${errorData.name ? "border-red-500" : "border-white/20"} px-2 py-2 bg-(--smooth-surface) text-sm gap-3`}>
                                 <User className="text-(--text-muted) size-4"/>
-                                <input className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" type="text" placeholder="Your full name"/>
+                                <input 
+                                    id="name"
+                                    name="name"
+                                    type="text" 
+                                    placeholder="Your full name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" 
+                                />
                             </div>
+                            {
+                                errorData.name && (
+                                    <p className="text-red-500 text-sm my-1 mx-1">{errorData.name}</p>
+                                )
+                            }
                         </div>
 
                         {/* email input field */}
                         <div className="flex flex-col my-4">
-                            <label className="text-sm text-(--text-muted) font-bold"  htmlFor="">EMAIL ADDRESS</label>
-                            <div className="flex items-center rounded-md border-[0.5px] border-white/20 px-2 py-2 bg-(--smooth-surface) text-sm gap-3">
+                            <label htmlFor="email" className="text-sm text-(--text-muted) font-bold" >EMAIL ADDRESS</label>
+                            <div className={`flex items-center rounded-md border-[0.5px] ${errorData.email ? "border-red-500" : "border-white/20"} px-2 py-2 bg-(--smooth-surface) text-sm gap-3`}>
                                 <Mail className="text-(--text-muted) size-4"/>
-                                <input className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" type="email" placeholder="you@example.com"/>
+                                <input 
+                                    id="email"
+                                    name="email"
+                                    type="email" 
+                                    placeholder="you@example.com"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)"
+                                />
                             </div>
+                            {
+                                errorData.email && (
+                                    <p className="text-red-500 text-sm my-1 mx-1">{errorData.email}</p>
+                                )
+                            }
                         </div>
 
                         {/* password input field */}
                         <div className="relative flex flex-col my-4 text-(--text-muted) text-sm ">
-                            <label className="font-bold"  htmlFor="">PASSWORD</label>
-                            <div className="flex items-center rounded-md border-[0.5px] border-white/20 px-2 py-2 bg-(--smooth-surface) text-sm gap-3">
+                            <label htmlFor="password" className="font-bold">PASSWORD</label>
+                            <div className={`flex items-center rounded-md border-[0.5px] ${errorData.password ? "border-red-500" : "border-white/20"} px-2 py-2 bg-(--smooth-surface) text-sm gap-3`}>
                                 <KeyRound className="text-(--text-muted) size-4"/>
-                                <input className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" type={showPassword ? "text" : "password"} placeholder="Min. 8 characters"/>
+                                <input 
+                                    id="password"
+                                    name="password"
+                                    type={showPassword ? "text" : "password"} 
+                                    placeholder="Min. 8 characters"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    className="w-full bg-transparent text-(--text) outline-none placeholder:text-(--text-muted)" 
+                                />
                                 {/* password hide and show feature */}
                                 <button type="button" onClick={() => setShowPassword((current) => !current)} className="absolute right-3 cursor-pointer text-(--bg-glow) font-bold">{showPassword ? "Hide" : "Show"}</button>
                             </div>
+                            {
+                                errorData.password && (
+                                    <p className="text-red-500 text-sm my-1 mx-1">{errorData.password}</p>
+                                )
+                            }
                         </div>
 
                         <div className="flex justify-between items-center text-sm my-4">
@@ -68,6 +147,7 @@ function SignUpForm(){
                         <span>or continue with</span>
                         <div className="bg-white/15 min-w-[30%] min-h-px"></div>
                     </div>
+
                     <button className="w-full flex justify-center items-center gap-1.5 font-bold text-sm py-3 bg-(--surface-strong) rounded-md cursor-pointer my-5">
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="18" height="18" viewBox="0 0 48 48">
                             <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
@@ -77,6 +157,7 @@ function SignUpForm(){
                         </svg>
                         <span>Google</span>
                     </button>
+
                 </div>
             </div>
         </>
